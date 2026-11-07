@@ -728,25 +728,25 @@ No AWS resources are claimed as deployed by this project.
 # Project Screenshots & Evidence
 
 ## 1. Kimai Application
-![Kimai Application](screenshots/kimai-dashboard.png)
+![Kimai Application](screenshots/01-kimai-dashboard.png)
 
 ## 2. Grafana Monitoring Dashboard
-![Grafana Dashboard](screenshots/grafana-dashboard.png)
+![Grafana Dashboard](screenshots/02-grafana-dashboard.png)
 
 ## 3. Grafana Alert Rules
-![Grafana Alerts](screenshots/grafana-alerts.png)
+![Grafana Alerts](screenshots/03-grafana-alerts.png)
 
 ## 4. Prometheus Targets
-![Prometheus Targets](screenshots/prometheus-targets.png)
+![Prometheus Targets](screenshots/04-prometheus-targets.png)
 
 ## 5. Docker Compose Services
-![Docker Containers](screenshots/docker-containers.png)
+![Docker Containers](screenshots/05-docker-containers.png)
 
 ## 6. GitHub Actions CI/CD
-![GitHub Actions](screenshots/github-actions.png)
+![GitHub Actions](screenshots/06-github-actions.png)
 
 ## 7. Terraform Infrastructure
-![Terraform Output](screenshots/terraform-output.png)
+![Terraform Output](screenshots/07-terraform-output.png)
 
 
 ---
