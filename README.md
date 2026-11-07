@@ -728,7 +728,7 @@ No AWS resources are claimed as deployed by this project.
 # Project Screenshots & Evidence
 
 ## 1. Kimai Application
-![Kimai Application](screenshots/01-kimai-dashboard.png)
+![Kimai Application](screenshots/01-kimai.png)
 
 ## 2. Grafana Monitoring Dashboard
 ![Grafana Dashboard](screenshots/02-grafana-dashboard.png)
