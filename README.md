@@ -740,7 +740,7 @@ No AWS resources are claimed as deployed by this project.
 ![Prometheus Targets](screenshots/04-prometheus-targets.png)
 
 ## 5. Docker Compose Services
-![Docker Containers](screenshots/05-docker-containers.png)
+![Docker Containers](screenshots/05-docker-compose.png)
 
 ## 6. GitHub Actions CI/CD
 ![GitHub Actions](screenshots/06-github-actions.png)
