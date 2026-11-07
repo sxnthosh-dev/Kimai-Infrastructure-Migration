@@ -1,0 +1,111 @@
+services:
+  db:
+    image: mariadb:11.2.2
+    container_name: devops-mariadb
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3307:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - internal-network
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-u", "root", "-p$${MARIADB_ROOT_PASSWORD}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  kimai:
+    image: sxnthosh/kimai-devops:1.0.0
+    container_name: kimai_app
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    ports:
+      - "127.0.0.1:8000:8001"
+    environment:
+      DATABASE_URL: "mysql://${KIMAI_DB_USER}:${KIMAI_DB_PASSWORD}@db:3306/${KIMAI_DB_NAME}?charset=utf8mb4&serverVersion=11.2.2-MariaDB"
+      APP_SECRET: "${KIMAI_APP_SECRET}"
+      TRUSTED_HOSTS: "${KIMAI_TRUSTED_HOSTS}"
+      ADMINMAIL: "${KIMAI_ADMIN_EMAIL}"
+      ADMINPASS: "${KIMAI_ADMIN_PASSWORD}"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - internal-network
+    volumes:
+      - kimai_var:/opt/kimai/var
+      - kimai_public:/opt/kimai/public
+
+
+  prometheus:
+    image: prom/prometheus:v2.51.0
+    container_name: prometheus
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    networks:
+      - internal-network
+
+  grafana:
+    image: grafana/grafana:10.4.0
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - grafana_data:/var/lib/grafana
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+    networks:
+      - internal-network
+  node-exporter:
+    image: prom/node-exporter:v1.8.1
+    container_name: node-exporter
+    restart: unless-stopped
+    networks:
+      - internal-network
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.49.1
+    container_name: cadvisor
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - internal-network
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: kimai-nginx
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:80:80"
+    depends_on:
+      kimai:
+        condition: service_started
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - internal-network
+      
+networks:
+  internal-network:
+    driver: bridge
+volumes:
+  mariadb_data:
+  grafana_data:
+  kimai_var:
+  kimai_public:

@@ -725,6 +725,32 @@ No AWS resources are claimed as deployed by this project.
 
 ---
 
+# Project Screenshots & Evidence
+
+## 1. Kimai Application
+![Kimai Application](screenshots/kimai-dashboard.png)
+
+## 2. Grafana Monitoring Dashboard
+![Grafana Dashboard](screenshots/grafana-dashboard.png)
+
+## 3. Grafana Alert Rules
+![Grafana Alerts](screenshots/grafana-alerts.png)
+
+## 4. Prometheus Targets
+![Prometheus Targets](screenshots/prometheus-targets.png)
+
+## 5. Docker Compose Services
+![Docker Containers](screenshots/docker-containers.png)
+
+## 6. GitHub Actions CI/CD
+![GitHub Actions](screenshots/github-actions.png)
+
+## 7. Terraform Infrastructure
+![Terraform Output](screenshots/terraform-output.png)
+
+
+---
+
 ## License
 
 This project is intended for educational, portfolio, and DevOps infrastructure demonstration purposes.
